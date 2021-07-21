@@ -26,7 +26,7 @@ registerBlockType("responsive-block-editor-addons/instagram", {
     "This block allows you to stream Instagram content directly to your WordPress website, thus, increase your odds to get new followers and clients.",
     "responsive-block-editor-addons"
   ),
-  icon: ResponsiveBlockEditorAddonsIcons.info_block,
+  icon: 'instagram',
   category: "responsive_block_editor_addons",
   keywords: [
     __("instagram", "responsive-block-editor-addons"),
@@ -46,7 +46,5 @@ registerBlockType("responsive-block-editor-addons/instagram", {
   },
 
   /* Save the block markup. */
-  save: (props) => {
-    return <Save {...props} />;
-  },
+  save: () => null
 });
