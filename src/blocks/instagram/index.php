@@ -6,55 +6,58 @@
  * @package Responsive Blocks
  */
 
-if( ! WP_Block_Type_Registry::get_instance()->is_registered( 'responsive-block-editor-addons/instagram' ) ) {
-    register_block_type(
-	'responsive-block-editor-addons/instagram',
-	array(
-		'attributes'      => array(
-			'token'           => array(
-				'type'    => 'string',
-				'default' => '',
-			),
-			'columns'         => array(
-				'type'    => 'number',
-				'default' => '4',
-			),
-			'numberOfImages'  => array(
-				'type'    => 'number',
-				'default' => 4,
-			),
-			'gridGap'         => array(
-				'type'    => 'number',
-				'default' => 0,
-			),
-			'thumbs'          => array(
-				'type'    => 'array',
-				'default' => array(),
-			),
-			'backgroundColor' => array(
-				'type'    => 'string',
-				'default' => 'transparent',
-			),
-			'borderRadius'    => array(
-				'type'    => 'number',
-				'default' => 0,
-			),
-			'hasEqualImages'  => array(
-				'type'    => 'boolean',
-				'default' => false,
-			),
-			'showCaptions'    => array(
-				'type'    => 'boolean',
-				'default' => false,
-			),
-		),
-		'render_callback' => 'eb_instagram_render_callback',
-	)
-);
+/**
+ * Registers the instagram block on server
+ */
+function render_instagram_block() {
+	if ( ! WP_Block_Type_Registry::get_instance()->is_registered( 'responsive-block-editor-addons/instagram' ) ) {
+		register_block_type(
+			'responsive-block-editor-addons/instagram',
+			array(
+				'attributes'      => array(
+					'token'           => array(
+						'type'    => 'string',
+						'default' => '',
+					),
+					'columns'         => array(
+						'type'    => 'number',
+						'default' => '4',
+					),
+					'numberOfImages'  => array(
+						'type'    => 'number',
+						'default' => 4,
+					),
+					'gridGap'         => array(
+						'type'    => 'number',
+						'default' => 0,
+					),
+					'thumbs'          => array(
+						'type'    => 'array',
+						'default' => array(),
+					),
+					'backgroundColor' => array(
+						'type'    => 'string',
+						'default' => 'transparent',
+					),
+					'borderRadius'    => array(
+						'type'    => 'number',
+						'default' => 0,
+					),
+					'hasEqualImages'  => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+					'showCaptions'    => array(
+						'type'    => 'boolean',
+						'default' => false,
+					),
+				),
+				'render_callback' => 'rbea_instagram_render_callback',
+			)
+		);
 	}
 }
-
-add_action( 'init', 'create_block_instagram_feed_block_block_init' );
+add_action( 'init', 'render_instagram_block' );
 
 /**
  * Function using WordPress API to fetch instagram data.
