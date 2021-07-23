@@ -4,7 +4,6 @@
 
 // Import block dependencies and components
 import Edit from "./components/edit";
-import Save from "./components/save";
 import attributes from "./attributes";
 
 import ResponsiveBlockEditorAddonsIcons from "../../block-icons";
@@ -26,7 +25,7 @@ registerBlockType("responsive-block-editor-addons/instagram", {
     "This block allows you to stream Instagram content directly to your WordPress website, thus, increase your odds to get new followers and clients.",
     "responsive-block-editor-addons"
   ),
-  icon: 'instagram',
+  icon: "instagram",
   category: "responsive_block_editor_addons",
   keywords: [
     __("instagram", "responsive-block-editor-addons"),
@@ -46,5 +45,5 @@ registerBlockType("responsive-block-editor-addons/instagram", {
   },
 
   /* Save the block markup. */
-  save: () => null
+  save: () => null,
 });

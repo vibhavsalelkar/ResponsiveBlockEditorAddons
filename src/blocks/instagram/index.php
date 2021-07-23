@@ -15,6 +15,9 @@ function render_instagram_block() {
 			'responsive-block-editor-addons/instagram',
 			array(
 				'attributes'      => array(
+					'block_id'        => array(
+						'type' => 'string',
+					),
 					'token'           => array(
 						'type'    => 'string',
 						'default' => '',

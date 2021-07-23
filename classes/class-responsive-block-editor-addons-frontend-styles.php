@@ -7904,11 +7904,61 @@ if ( ! class_exists( 'Responsive_Block_Editor_Addons_Frontend_Styles' ) ) {
 			$mobile_selectors = array();
 			$tablet_selectors = array();
 
-			$selectors = array();
+			$selectors = array(
+				' ' => array(
+					'padding-top'    => self::get_css_value( $attr['instaTopPadding'], 'px' ),
+					'padding-bottom' => self::get_css_value( $attr['instaBottomPadding'], 'px' ),
+					'padding-left'   => self::get_css_value( $attr['instaLeftPadding'], 'px' ),
+					'padding-right'  => self::get_css_value( $attr['instaRightPadding'], 'px' ),
+					'margin-top'     => self::get_css_value( $attr['instaTopMargin'], 'px' ) . '!important',
+					'margin-bottom'  => self::get_css_value( $attr['instaBottomMargin'], 'px' ) . '!important',
+					'margin-left'    => self::get_css_value( $attr['instaLeftMargin'], 'px' ),
+					'margin-right'   => self::get_css_value( $attr['instaRightMargin'], 'px' ),
+				),
+				' .responsive-block-editor-addons-intro-page' => array(
+					'border'  => '1px solid black',
+					'padding' => '0 20px',
+				),
+				' .responsive-block-editor-addons-intro-page p > a' => array(
+					'color' => 'blue',
+				),
+				' .responsive-block-editor-addons-instagram-posts-container' => array(
+					'grid-template-columns' => 'repeat(' . $attr['columns'] . ', 1fr)',
+					'grid-gap'              => self::get_css_value( $attr['imagesGap'], 'px' ),
+				),
+				' .responsive-block-editor-addons-instagram-image' => array(
+					'border-radius' => self::get_css_value( $attr['borderRadius'], '%' ),
+				),
+				' .responsive-block-editor-addons-instagram-wrapper' => array(
+					'width' => self::get_css_value( $attr['gridSize'], 'px' ),
+				),
+			);
 
-			$mobile_selectors = array();
+			$mobile_selectors = array(
+				' ' => array(
+					'padding-top'    => self::get_css_value( $attr['instaTopPaddingMobile'], 'px' ) . '!important',
+					'padding-bottom' => self::get_css_value( $attr['instaBottomPaddingMobile'], 'px' ) . '!important',
+					'padding-left'   => self::get_css_value( $attr['instaLeftPaddingMobile'], 'px' ) . '!important',
+					'padding-right'  => self::get_css_value( $attr['instaRightPaddingMobile'], 'px' ) . '!important',
+					'margin-top'     => self::get_css_value( $attr['instaTopMarginMobile'], 'px' ) . '!important',
+					'margin-bottom'  => self::get_css_value( $attr['instaBottomMarginMobile'], 'px' ) . '!important',
+					'margin-left'    => self::get_css_value( $attr['instaLeftMarginMobile'], 'px' ) . '!important',
+					'margin-right'   => self::get_css_value( $attr['instaRightMarginMobile'], 'px' ) . '!important',
+				),
+			);
 
-			$tablet_selectors = array();
+			$tablet_selectors = array(
+				' ' => array(
+					'padding-top'    => self::get_css_value( $attr['instaTopPaddingTablet'], 'px' ) . '!important',
+					'padding-bottom' => self::get_css_value( $attr['instaBottomPaddingTablet'], 'px' ) . '!important',
+					'padding-left'   => self::get_css_value( $attr['instaLeftPaddingTablet'], 'px' ) . '!important',
+					'padding-right'  => self::get_css_value( $attr['instaRightPaddingTablet'], 'px' ) . '!important',
+					'margin-top'     => self::get_css_value( $attr['instaTopMarginTablet'], 'px' ) . '!important',
+					'margin-bottom'  => self::get_css_value( $attr['instaBottomMarginTablet'], 'px' ) . '!important',
+					'margin-left'    => self::get_css_value( $attr['instaLeftMarginTablet'], 'px' ) . '!important',
+					'margin-right'   => self::get_css_value( $attr['instaRightMarginTablet'], 'px' ) . '!important',
+				),
+			);
 
 			$combined_selectors = array(
 				'desktop' => $selectors,
@@ -7929,7 +7979,42 @@ if ( ! class_exists( 'Responsive_Block_Editor_Addons_Frontend_Styles' ) ) {
 		 */
 		public static function get_responsive_block_instagram_default_attributes() {
 			return array(
-				'block_id'               => '',
+				'block_id'                 => '',
+				'token'                    => '',
+				'columns'                  => '4',
+				'numberOfImages'           => 4,
+				'gridGap'                  => 0,
+				'thumbs'                   => '',
+				'backgroundColor'          => 'transparent',
+				'borderRadius'             => 0,
+				'hasEqualImages'           => false,
+				'showCaptions'             => false,
+				'instaTopPadding'          => 0,
+				'instaBottomPadding'       => 0,
+				'instaRightPadding'        => 0,
+				'instaLeftPadding'         => 0,
+				'instaTopPaddingMobile'    => 0,
+				'instaBottomPaddingMobile' => 0,
+				'instaRightPaddingMobile'  => 0,
+				'instaLeftPaddingMobile'   => 0,
+				'instaTopPaddingTablet'    => 0,
+				'instaBottomPaddingTablet' => 0,
+				'instaRightPaddingTablet'  => 0,
+				'instaLeftPaddingTablet'   => 0,
+				'instaTopMargin'           => 0,
+				'instaBottomMargin'        => 0,
+				'instaRightMargin'         => 0,
+				'instaLeftMargin'          => 0,
+				'instaTopMarginMobile'     => 0,
+				'instaBottomMarginMobile'  => 0,
+				'instaRightMarginMobile'   => 0,
+				'instaLeftMarginMobile'    => 0,
+				'instaTopMarginTablet'     => 0,
+				'instaBottomMarginTablet'  => 0,
+				'instaRightMarginTablet'   => 0,
+				'instaLeftMarginTablet'    => 0,
+				'gridSize'                 => 0,
+				'imagesGap'                => 0,
 			);
 		}
 
