@@ -7989,7 +7989,7 @@ if ( ! class_exists( 'Responsive_Block_Editor_Addons_Frontend_Styles' ) ) {
 				'block_id'                 => '',
 				'token'                    => '',
 				'columns'                  => '4',
-				'numberOfImages'           => 4,
+				'numberOfItems'            => 4,
 				'gridGap'                  => 0,
 				'thumbs'                   => '',
 				'backgroundColor'          => 'transparent',
@@ -8020,7 +8020,7 @@ if ( ! class_exists( 'Responsive_Block_Editor_Addons_Frontend_Styles' ) ) {
 				'instaBottomMarginTablet'  => 0,
 				'instaRightMarginTablet'   => 0,
 				'instaLeftMarginTablet'    => 0,
-				'gridSize'                 => 0,
+				'gridSize'                 => 700,
 				'imagesGap'                => 0,
 			);
 		}

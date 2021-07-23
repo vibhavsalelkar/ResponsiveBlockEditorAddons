@@ -130,6 +130,7 @@ const attributes = {
   },
   gridSize: {
     type: "number",
+    default: 700,
   }
 };
 export default attributes;

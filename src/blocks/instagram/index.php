@@ -7,62 +7,6 @@
  */
 
 /**
- * Registers the instagram block on server
- */
-function render_instagram_block() {
-	if ( ! WP_Block_Type_Registry::get_instance()->is_registered( 'responsive-block-editor-addons/instagram' ) ) {
-		register_block_type(
-			'responsive-block-editor-addons/instagram',
-			array(
-				'attributes'      => array(
-					'block_id'        => array(
-						'type' => 'string',
-					),
-					'token'           => array(
-						'type'    => 'string',
-						'default' => '',
-					),
-					'columns'         => array(
-						'type'    => 'number',
-						'default' => '4',
-					),
-					'numberOfImages'  => array(
-						'type'    => 'number',
-						'default' => 4,
-					),
-					'gridGap'         => array(
-						'type'    => 'number',
-						'default' => 0,
-					),
-					'thumbs'          => array(
-						'type'    => 'array',
-						'default' => array(),
-					),
-					'backgroundColor' => array(
-						'type'    => 'string',
-						'default' => 'transparent',
-					),
-					'borderRadius'    => array(
-						'type'    => 'number',
-						'default' => 0,
-					),
-					'hasEqualImages'  => array(
-						'type'    => 'boolean',
-						'default' => false,
-					),
-					'showCaptions'    => array(
-						'type'    => 'boolean',
-						'default' => false,
-					),
-				),
-				'render_callback' => 'rbea_instagram_render_callback',
-			)
-		);
-	}
-}
-add_action( 'init', 'render_instagram_block' );
-
-/**
  * Function using WordPress API to fetch instagram data.
  *
  * @param String $url api to featch instagram posts.
@@ -129,9 +73,9 @@ function rbea_instagram_render_callback( array $attributes ) {
 	$show_aptions    = $attributes['showCaptions'];
 	$border_radius   = $attributes['borderRadius'];
 
-	$suffix = $token . '_' . $number_of_items;
-
-	if ( ! rbea_instagram_data_from_cache( $suffix ) ) {
+	$suffix = $token;
+	
+	if ( !rbea_instagram_data_from_cache( $suffix ) ) {
 		$result = json_decode( rbea_instagram_fetch_data( "https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url,timestamp,username&access_token={$token}" ) );
 		rbea_instagram_data_to_cache( $result, $suffix );
 	} else {
@@ -172,3 +116,62 @@ function rbea_instagram_render_callback( array $attributes ) {
 
 	return "{$image_container}</div></div></div>";
 }
+
+
+/**
+ * Registers the instagram block on server
+ */
+function render_instagram_block() {
+	/* Check if the register function exists */
+	if ( ! function_exists( 'register_block_type' ) ) {
+		return;
+	}
+	register_block_type(
+		'responsive-block-editor-addons/instagram',
+		array(
+			'attributes'      => array(
+				'block_id'        => array(
+					'type' => 'string',
+				),
+				'token'           => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'columns'         => array(
+					'type'    => 'number',
+					'default' => '4',
+				),
+				'numberOfItems'   => array(
+					'type'    => 'number',
+					'default' => 4,
+				),
+				'gridGap'         => array(
+					'type'    => 'number',
+					'default' => 0,
+				),
+				'thumbs'          => array(
+					'type'    => 'array',
+					'default' => array(),
+				),
+				'backgroundColor' => array(
+					'type'    => 'string',
+					'default' => 'transparent',
+				),
+				'borderRadius'    => array(
+					'type'    => 'number',
+					'default' => 0,
+				),
+				'hasEqualImages'  => array(
+					'type'    => 'boolean',
+					'default' => false,
+				),
+				'showCaptions'    => array(
+					'type'    => 'boolean',
+					'default' => false,
+				),
+			),
+			'render_callback' => 'rbea_instagram_render_callback',
+		)
+	);
+}
+add_action( 'init', 'render_instagram_block' );
