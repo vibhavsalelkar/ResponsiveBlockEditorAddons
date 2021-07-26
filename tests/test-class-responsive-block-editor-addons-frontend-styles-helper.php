@@ -226,6 +226,13 @@ class Responsive_Block_Editor_Addons_Frontend_Styles_Helper_Test extends WP_Unit
 	protected static $content_timeline_block_id;
 
 	/**
+	 * Dummy block ID.
+	 *
+	 * @var int
+	 */
+	protected static $instagram_block_id;
+
+	/**
 	 * Setup class instance
 	 *
 	 * @param class WP_UnitTest_Factory $factory class instance.
@@ -486,6 +493,16 @@ class Responsive_Block_Editor_Addons_Frontend_Styles_Helper_Test extends WP_Unit
 				'post_status'  => 'publish',
 				'post_title'   => 'Test Block',
 				'post_content' => '<!-- wp:responsive-block-editor-addons/content-timeline --><!-- /wp:responsive-block-editor-addons/content-timeline-->',
+			)
+		);
+
+		self::$instagram_block_id = $factory->post->create(
+			array(
+				'post_author'  => self::$user_id,
+				'post_type'    => 'wp_block',
+				'post_status'  => 'publish',
+				'post_title'   => 'Test Block',
+				'post_content' => '<!-- wp:responsive-block-editor-addons/instagram --><!-- /wp:responsive-block-editor-addons/instagram -->',
 			)
 		);
 	}
@@ -1857,6 +1874,27 @@ class Responsive_Block_Editor_Addons_Frontend_Styles_Helper_Test extends WP_Unit
 	public function test_render_svg_html() {
 		$expected = self::render_svg_html( 'fa fa-star' );
 		$result   = self::$rbea_frontend_styles_helper->render_svg_html( 'fa fa-star' );
+		$this->assertEquals( $expected, $result );
+	}
+
+	/**
+	 * Test for instagram block get_block_css function
+	 */
+	public function test_get_block_css_instagram() {
+		$attributes  = self::$rbea_frontend_styles->get_responsive_block_instagram_default_attributes();
+		$block       = array(
+			'blockName'    => 'responsive-block-editor-addons/instagram',
+			'attrs'        => array_merge( $attributes, array( 'block_id' => self::$instagram_block_id ) ),
+			'innerBlocks'  => array(),
+			'innerHTML'    => ' ',
+			'innerContent' => array(
+				' ',
+			),
+		);
+		$block_attrs = self::extract_attributes( $block );
+		$css         = self::$rbea_frontend_styles->get_responsive_block_instagram_css( $block_attrs[0], $block_attrs[1] );
+		$expected    = self::return_the_css( $block, $css );
+		$result      = self::$rbea_frontend_styles_helper->get_block_css( $block );
 		$this->assertEquals( $expected, $result );
 	}
 }

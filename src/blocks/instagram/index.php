@@ -74,8 +74,8 @@ function rbea_instagram_render_callback( array $attributes ) {
 	$border_radius   = $attributes['borderRadius'];
 
 	$suffix = $token;
-	
-	if ( !rbea_instagram_data_from_cache( $suffix ) ) {
+
+	if ( ! rbea_instagram_data_from_cache( $suffix ) ) {
 		$result = json_decode( rbea_instagram_fetch_data( "https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url,timestamp,username&access_token={$token}" ) );
 		rbea_instagram_data_to_cache( $result, $suffix );
 	} else {

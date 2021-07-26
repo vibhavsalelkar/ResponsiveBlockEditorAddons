@@ -4,6 +4,7 @@ const attributes = {
   },
   token: {
     type: "string",
+    default: "",
   },
   columns: {
     type: "string",
