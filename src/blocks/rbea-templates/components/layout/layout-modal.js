@@ -35,14 +35,6 @@ function LayoutModal(props) {
     });
   }
 
-  if (Object.keys(props.context.collections).length > 0) {
-    tabs.push({
-      name: "rbea-patterns-tab-collections",
-      title: __("Collections", "responsive-block-editor-addons"),
-      className: "rbea-patterns-tab-collections",
-    });
-  }
-
   tabs.push({
     name: "rbea-patterns-tab-favorites",
     title: __("Favorites", "responsive-block-editor-addons"),
