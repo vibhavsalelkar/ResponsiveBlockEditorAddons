@@ -46,6 +46,10 @@
 			border: none;
 			font-size: 16px;
 			height: auto;
+			border-radius: 10px;
+			border-bottom-right-radius: 0px;
+			border-bottom-left-radius: 0px;
+			color: #626262;
 
 			&:hover {
 				background: #fff;
@@ -59,6 +63,7 @@
 		background: #fff;
 		border: 1px solid #e2e4e7;
 		border-bottom: none;
+		color: #2184F9;
 	}
 
 	.components-base-control {
