@@ -55,6 +55,10 @@
 				background: #fff;
 				cursor: pointer;
 			}
+
+			&:focus {
+				box-shadow: none;
+			}
 		}
 	}
 
