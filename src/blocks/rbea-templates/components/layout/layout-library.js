@@ -80,6 +80,22 @@ export default class LayoutLibrary extends Component {
 
     const data = this.props.data;
 
+    const layouts = [];
+    const sections = [];
+
+    if ("rbea-patterns-tab-favorites" === this.props.currentTab) {
+      let favorite_keys = this.props.context.favoriteKeys;
+      Object.values(data).forEach(function (item) {
+        if (favorite_keys.includes(item.key)) {
+          if (item.type === "layout") {
+            layouts.push(item);
+          } else if (item.type === "section") {
+            sections.push(item);
+          }
+        }
+      });
+    }
+
     if (this.props.currentTab === "rbea-patterns-tab-collections") {
       return <Collections key={this.props.data.key} {...this.props} />;
     }
@@ -132,55 +148,183 @@ export default class LayoutLibrary extends Component {
           </Fragment>
         )}
 
-        <LayoutsContext.Consumer>
-          {(context) => (
-            <ButtonGroup
-              key={"patterns-button-group-" + this.props.clientId}
-              className={classnames(
-                "rbea-patterns-choices",
-                "current-tab-" + this.props.currentTab,
-                "full" === this.state.activeView
-                  ? "rbea-patterns-view-full"
-                  : null
+        {"rbea-patterns-tab-favorites" === this.props.currentTab ? (
+          <Fragment>
+            {layouts.length !== 0 && this.props.pageFlag && <h1 className="rbea-favorites-heading">Pages</h1>}
+            <LayoutsContext.Consumer>
+              {(context) => (
+                <ButtonGroup
+                  key={"patterns-button-group-" + this.props.clientId}
+                  className={classnames(
+                    "rbea-patterns-choices",
+                    "current-tab-" + this.props.currentTab,
+                    "full" === this.state.activeView
+                      ? "rbea-patterns-view-full"
+                      : null
+                  )}
+                  aria-label={__(
+                    "Layout Options",
+                    "responsive-block-editor-addons"
+                  )}
+                >
+                  {map(
+                    layouts,
+                    ({
+                      type,
+                      name,
+                      key,
+                      image,
+                      content,
+                      category,
+                      keywords,
+                    }) => {
+                      if (
+                        ("all" === this.state.category ||
+                          category.includes(this.state.category)) &&
+                        (!this.state.search ||
+                          (keywords &&
+                            keywords.some((x) =>
+                              x
+                                .toLowerCase()
+                                .includes(this.state.search.toLowerCase())
+                            )))
+                      ) {
+                        this.props.setPage(true)
+                        return (
+                          <LayoutLibraryItem
+                            key={"pattern-item-" + key}
+                            name={name}
+                            itemKey={key}
+                            type={type}
+                            image={image}
+                            content={content}
+                            context={context}
+                            clientId={this.props.clientId}
+                            currentTab={this.props.currentTab}
+                          />
+                        );
+                      } else {
+                        this.props.setPage(false)
+                      }
+                    }
+                  )}
+                </ButtonGroup>
               )}
-              aria-label={__(
-                "Layout Options",
-                "responsive-block-editor-addons"
+            </LayoutsContext.Consumer>
+            {sections.length !== 0 && this.props.sectionFlag && <h1 className="rbea-favorites-heading">Sections</h1>}
+            <LayoutsContext.Consumer>
+              {(context) => (
+                <ButtonGroup
+                  key={"patterns-button-group-" + this.props.clientId}
+                  className={classnames(
+                    "rbea-patterns-choices",
+                    "current-tab-" + this.props.currentTab,
+                    "full" === this.state.activeView
+                      ? "rbea-patterns-view-full"
+                      : null
+                  )}
+                  aria-label={__(
+                    "Layout Options",
+                    "responsive-block-editor-addons"
+                  )}
+                >
+                  {" "}
+                  {map(
+                    sections,
+                    ({
+                      type,
+                      name,
+                      key,
+                      image,
+                      content,
+                      category,
+                      keywords,
+                    }) => {
+                      if (
+                        ("all" === this.state.category ||
+                          category.includes(this.state.category)) &&
+                        (!this.state.search ||
+                          (keywords &&
+                            keywords.some((x) =>
+                              x
+                                .toLowerCase()
+                                .includes(this.state.search.toLowerCase())
+                            )))
+                      ) {
+                        this.props.setSection(true)
+                        return (
+                          <LayoutLibraryItem
+                            key={"pattern-item-" + key}
+                            name={name}
+                            itemKey={key}
+                            type={type}
+                            image={image}
+                            content={content}
+                            context={context}
+                            clientId={this.props.clientId}
+                            currentTab={this.props.currentTab}
+                          />
+                        );
+                      }else {
+                        this.props.setSection(false)
+                      }
+                    }
+                  )}
+                </ButtonGroup>
               )}
-            >
-              {map(
-                data,
-                ({ type, name, key, image, content, category, keywords }) => {
-                  if (
-                    ("all" === this.state.category ||
-                      category.includes(this.state.category)) &&
-                    (!this.state.search ||
-                      (keywords &&
-                        keywords.some((x) =>
-                          x
-                            .toLowerCase()
-                            .includes(this.state.search.toLowerCase())
-                        )))
-                  ) {
-                    return (
-                      <LayoutLibraryItem
-                        key={"pattern-item-" + key}
-                        name={name}
-                        itemKey={key}
-                        type= {type}
-                        image={image}
-                        content={content}
-                        context={context}
-                        clientId={this.props.clientId}
-                        currentTab={this.props.currentTab}
-                      />
-                    );
+            </LayoutsContext.Consumer>
+          </Fragment>
+        ) : (
+          <LayoutsContext.Consumer>
+            {(context) => (
+              <ButtonGroup
+                key={"patterns-button-group-" + this.props.clientId}
+                className={classnames(
+                  "rbea-patterns-choices",
+                  "current-tab-" + this.props.currentTab,
+                  "full" === this.state.activeView
+                    ? "rbea-patterns-view-full"
+                    : null
+                )}
+                aria-label={__(
+                  "Layout Options",
+                  "responsive-block-editor-addons"
+                )}
+              >
+                {map(
+                  data,
+                  ({ type, name, key, image, content, category, keywords }) => {
+                    if (
+                      ("all" === this.state.category ||
+                        category.includes(this.state.category)) &&
+                      (!this.state.search ||
+                        (keywords &&
+                          keywords.some((x) =>
+                            x
+                              .toLowerCase()
+                              .includes(this.state.search.toLowerCase())
+                          )))
+                    ) {
+                      return (
+                        <LayoutLibraryItem
+                          key={"pattern-item-" + key}
+                          name={name}
+                          itemKey={key}
+                          type={type}
+                          image={image}
+                          content={content}
+                          context={context}
+                          clientId={this.props.clientId}
+                          currentTab={this.props.currentTab}
+                        />
+                      );
+                    }
                   }
-                }
-              )}
-            </ButtonGroup>
-          )}
-        </LayoutsContext.Consumer>
+                )}
+              </ButtonGroup>
+            )}
+          </LayoutsContext.Consumer>
+        )}
       </Fragment>
     );
   }

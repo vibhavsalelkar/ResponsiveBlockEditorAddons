@@ -14,6 +14,8 @@ const { useDispatch } = wp.data;
 
 function LayoutModal(props) {
   const [currentTab, setCurrentTab] = useState("rbea-patterns-tab-sections");
+  const [pageFlag, setPageFlag] = useState(true);
+  const [sectionFlag, setSectionFlag] = useState(true);
   const [modalOpen, setModalOpen] = useState(true);
   const { removeBlock } = useDispatch("core/block-editor");
 
@@ -47,6 +49,14 @@ function LayoutModal(props) {
       title: __("Reusable Blocks", "responsive-block-editor-addons"),
       className: "rbea-patterns-tab-reusable-blocks",
     });
+  }
+
+  const handlePageFlag = ( value) => {
+    setPageFlag(value)
+  }
+
+  const handleSectionFlag = (value) => {
+    setSectionFlag(value)
   }
 
   return (
@@ -133,6 +143,10 @@ function LayoutModal(props) {
                       clientId={props.clientId}
                       currentTab={currentTab}
                       data={props.context.favorites}
+                      pageFlag={pageFlag}
+                      setPage={handlePageFlag}
+                      sectionFlag={sectionFlag}
+                      setSection={handleSectionFlag}
                       context={props.context}
                     />,
                   ];

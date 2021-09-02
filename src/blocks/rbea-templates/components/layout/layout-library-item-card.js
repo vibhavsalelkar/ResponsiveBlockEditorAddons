@@ -63,7 +63,6 @@ export default class LayoutLibraryItemCard extends Component {
               <div
                 key={this.props.itemKey}
                 className="rbea-patterns-insert-button responsive-block-editior-addons-import-button-outer"
-                isSmall
               >
                 <div className={'rbea-pattern-preview'}></div>
                 <div
@@ -81,7 +80,7 @@ export default class LayoutLibraryItemCard extends Component {
                     this.importCurrentPattern(this.props.content, this.props.clientId)
                   }}
                 >
-                    <span class="dashicons dashicons-download responsive-block-editior-addons-import-icon"></span>                  
+                    <span className="dashicons dashicons-download responsive-block-editior-addons-import-icon"></span>                  
                     {
                        this.state.importing? 'Importing...' : 'Import'
                     }
@@ -110,7 +109,6 @@ export default class LayoutLibraryItemCard extends Component {
                       <Button
                         key={"buttonFavorite"}
                         className="rbea-patterns-favorite-button"
-                        isSmall
                         onClick={() => {
                           this.props.context.toggleFavorite(this.props.itemKey);
                         }}
